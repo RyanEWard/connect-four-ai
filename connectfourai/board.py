@@ -40,7 +40,7 @@ class Board:
             for c in range(len(self.board[r]) - 1):
                 row_string += self.getLabel(r, c) + "|"
             row_string += self.getLabel(r, len(self.board[r]) - 1)
-            print row_string
+            print(row_string)
             row_string = ""
 
         column_labels = ""
@@ -51,9 +51,9 @@ class Board:
         column_labels += str(len(self.board[0]))
         divider += "-"
 
-        print divider
-        print column_labels
-        print
+        print(divider)
+        print(column_labels)
+        print()
 
     def getLabel(self, r, c):
         if self.board[r][c] == 0:
@@ -96,4 +96,4 @@ b.placeMarker(2, 3)
 
 b.prettyPrint()
 
-print b.winningPlayer()
+print(b.winningPlayer())
