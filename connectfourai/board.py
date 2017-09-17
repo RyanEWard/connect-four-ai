@@ -2,28 +2,34 @@ class Board:
     def __init__(self, rows, columns):
         self.board = [[0 for _ in range(columns)] for _ in range(rows)]
 
-    def placeMarker(self, player, column):
+    def place_marker(self, player, column):
         for row in reversed(range(len(self.board))):
             if self.board[row][column] == 0:
                 self.board[row][column] = player
                 return
 
-    def openColumns(self):
+    def remove_marker(self, column):
+        for row in range(len(self.board)):
+            if self.board[row][column] != 0:
+                self.board[row][column] = 0
+                return
+
+    def open_columns(self):
         return [c for c in range(len(self.board[0])) if self.board[0][c] == 0]
 
-    def winningPlayer(self):
-        for four_in_a_row in self.getRows() + self.getColumns() + self.getDiagonals():
+    def winning_player(self):
+        for four_in_a_row in self.get_rows() + self.get_columns() + self.get_diagonals():
             if four_in_a_row[0] != 0 and len(set(four_in_a_row)) == 1:
                 return four_in_a_row[0]
         return 0
 
-    def getRows(self):
+    def get_rows(self):
         return [row[c:c + 4] for row in self.board for c in range(len(row) - 3)]
 
-    def getColumns(self):
+    def get_columns(self):
         return [list(col[r:r + 4]) for col in zip(*self.board) for r in range(len(col) - 3)]
 
-    def getDiagonals(self):
+    def get_diagonals(self):
         down_right_diagonals = [[self.board[r + dif][c + dif] for dif in range(4)]
                                 for r in range(len(self.board) - 3)
                                 for c in range(len(self.board[0]) - 3)]
@@ -34,12 +40,12 @@ class Board:
 
         return down_right_diagonals + up_right_diagonals
 
-    def prettyPrint(self):
+    def pretty_print(self):
         row_string = ""
         for r in range(len(self.board)):
             for c in range(len(self.board[r]) - 1):
-                row_string += self.getLabel(r, c) + "|"
-            row_string += self.getLabel(r, len(self.board[r]) - 1)
+                row_string += self.get_label(r, c) + "|"
+            row_string += self.get_label(r, len(self.board[r]) - 1)
             print(row_string)
             row_string = ""
 
@@ -55,45 +61,10 @@ class Board:
         print(column_labels)
         print()
 
-    def getLabel(self, r, c):
+    def get_label(self, r, c):
         if self.board[r][c] == 0:
             return " "
         elif self.board[r][c] == 1:
             return "X"
         else:
             return "O"
-
-
-b = Board(6, 7)
-b.prettyPrint()
-
-b.placeMarker(1, 0)
-
-b.prettyPrint()
-
-b.placeMarker(2, 0)
-
-b.placeMarker(1, 0)
-b.placeMarker(2, 0)
-
-b.placeMarker(1, 0)
-b.placeMarker(2, 0)
-
-b.placeMarker(1, 2)
-b.placeMarker(2, 2)
-
-b.placeMarker(1, 2)
-b.placeMarker(2, 2)
-
-b.placeMarker(1, 1)
-b.placeMarker(2, 6)
-
-b.placeMarker(1, 1)
-b.placeMarker(2, 1)
-
-b.placeMarker(1, 6)
-b.placeMarker(2, 3)
-
-b.prettyPrint()
-
-print(b.winningPlayer())
