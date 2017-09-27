@@ -5,8 +5,6 @@ def switch(player):
 
 
 def minimax_helper(board, player, max_depth, current_depth):
-    # search depth is reached or game is over
-
     current_board_winner = board.winning_player()
 
     # search depth is reached or game is over
