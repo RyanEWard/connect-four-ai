@@ -1,7 +1,5 @@
 def switch(player):
-    if player == 1:
-        return 2
-    return 1
+    return 2 if player == 1 else 1
 
 
 def minimax_helper(board, player, max_depth, current_depth):

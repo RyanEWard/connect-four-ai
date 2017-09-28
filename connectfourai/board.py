@@ -1,4 +1,7 @@
 class Board:
+    player_one_character = "X"
+    player_two_character = "O"
+
     def __init__(self, rows, columns):
         self.board = [[0 for _ in range(columns)] for _ in range(rows)]
 
@@ -44,15 +47,16 @@ class Board:
         row_string = ""
         for r in range(len(self.board)):
             for c in range(len(self.board[r]) - 1):
-                row_string += self.get_label(r, c) + "|"
-            row_string += self.get_label(r, len(self.board[r]) - 1)
+                row_string += self.get_position_label(r, c) + "|"
+            row_string += self.get_position_label(r, len(self.board[r]) - 1)
             print(row_string)
             row_string = ""
 
         column_labels = ""
         divider = ""
+        open_columns = self.open_columns()
         for c in range(len(self.board[0]) - 1):
-            column_labels += str(c + 1) + "|"
+            column_labels += (str(c + 1) if c in open_columns else "-") + "|"
             divider += "--"
         column_labels += str(len(self.board[0]))
         divider += "-"
@@ -61,10 +65,14 @@ class Board:
         print(column_labels)
         print()
 
-    def get_label(self, r, c):
-        if self.board[r][c] == 0:
-            return " "
-        elif self.board[r][c] == 1:
-            return "X"
+    def get_position_label(self, r, c):
+        return self.get_label(self.board[r][c])
+
+    @staticmethod
+    def get_label(player):
+        if player == 1:
+            return Board.player_one_character
+        elif player == 2:
+            return Board.player_two_character
         else:
-            return "O"
+            return " "
