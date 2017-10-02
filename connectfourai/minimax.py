@@ -1,3 +1,5 @@
+import timeit
+
 def switch(player):
     return 2 if player == 1 else 1
 
@@ -51,4 +53,6 @@ def minimax_helper(board, player, max_depth, current_depth):
 
 
 def minimax(board, player, max_depth):
-    return minimax_helper(board, player, max_depth, 1)
+    time_start = timeit.default_timer()
+    (move, value, nodes_evaluated) = minimax_helper(board, player, max_depth, 1)
+    return move, value, nodes_evaluated, (timeit.default_timer() - time_start)

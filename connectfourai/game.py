@@ -62,11 +62,11 @@ def computer_player_turn(board, computer_player):
     print()
     board.pretty_print()
 
-    (move, value, nodes_evaluated) = minimax(board, computer_player, 6)
+    (move, value, nodes_evaluated, time_taken) = minimax(board, computer_player, 7)
 
     board.place_marker(computer_player, move)
 
-    print(str(nodes_evaluated) + " game states evaluated.")
+    print(str(nodes_evaluated) + " game states evaluated in " + str(time_taken) + " seconds.")
     print("Computer selected column " + str(move + 1) + " for its marker.")
     print()
 
