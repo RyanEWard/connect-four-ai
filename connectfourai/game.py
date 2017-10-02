@@ -1,5 +1,3 @@
-import random
-
 from board import Board
 from minimax import minimax
 
@@ -65,9 +63,6 @@ def computer_player_turn(board, computer_player):
     board.pretty_print()
 
     (move, value, nodes_evaluated) = minimax(board, computer_player, 6)
-
-    if value == 0:  # no solution found, select random move for now
-        move = random.choice(board.open_columns())
 
     board.place_marker(computer_player, move)
 
